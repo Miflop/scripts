@@ -1,7 +1,9 @@
 FROM fedora:latest
 MAINTAINER Miguel Lorca <info@miflop.com>
 ENV build_date 06/05/2018
-ENV NombreCentral MiCentralita.eu
+ARG NombreCentral
+ARG IP
+ARG Dominio
 
 RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
@@ -10,7 +12,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 WORKDIR /etc
 RUN echo $NombreCentral >> hostname
 WORKDIR /etc
-RUN echo "178.239.215.156 micentralita.eu" >> hosts
+RUN echo "$IP $Dominio" >> hosts
 
 RUN yum update -y && \
     yum install -y epel-release && \
@@ -135,7 +137,7 @@ RUN menuselect/menuselect \
   --enable res_timing_timerfd \
   menuselect.makeopts
 
-# ./buildmenu.sh app_stasis res_stasis cdr_syslog chan_bridge_media chan_rtp chan_pjsip codec_a_mu codec_ulaw pbx_config 
+# ./buildmenu.sh app_stasis res_stasis cdr_syslog chan_bridge_media chan_rtp chan_pjsip codec_a_mu codec_ulaw pbx_config
 
 # Continue with a standard make.
 RUN make 1> /dev/null
