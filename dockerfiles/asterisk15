@@ -1,18 +1,17 @@
 FROM centos:latest
 MAINTAINER Miguel Lorca <info@miflop.com>
 ENV build_date 06/05/2018
-ARG NombreCentral
+ARG Host
 ARG IP
-ARG Dominio
+ARG Domain
 
 RUN rm -f /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 
-#Ponemos el nombre del servidor y la IP (CAMBIAR A GUSTO)
 WORKDIR /etc
-RUN echo $NombreCentral >> hostname
+RUN echo $Host >> hostname
 WORKDIR /etc
-RUN echo "$IP $Dominio" >> hosts
+RUN echo $IP $Domain >> hosts
 
 RUN yum update -y && \
     yum install -y epel-release && \
@@ -45,7 +44,6 @@ RUN yum update -y && \
         gettext \
         -y
 
-# Download asterisk.
 WORKDIR /usr/src
 RUN git clone -b 15.4.0 --depth 1 https://github.com/asterisk/asterisk.git
 
