@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker build -t asterisk154 --build-arg Domain=sip.micentralita.eu,IP=10.10.10.149,Host=MiCentralita -f asterisk154 .
+docker build -t asterisk154 -f asterisk154 .
 
-docker run -d --name asterisk154 asterisk154
+docker run -d -p 5060:5060 --name asterisk154 --hostname Micentralita asterisk154

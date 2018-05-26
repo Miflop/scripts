@@ -155,5 +155,6 @@ COPY http.conf /etc/asterisk/http.conf
 
 VOLUME /var/lib/asterisk
 EXPOSE 5060
+EXPOSE 10000:20000/UDP
 # And run asterisk in the foreground.
 CMD asterisk -f
